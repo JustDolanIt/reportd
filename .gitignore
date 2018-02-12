@@ -3,3 +3,4 @@
 *.swp
 *.yaml
 !config/config_example.yaml
+reports/

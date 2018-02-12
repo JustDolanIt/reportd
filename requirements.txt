@@ -1,3 +1,5 @@
 aioamqp
 pyyaml
 requests
+aiopg
+psycopg2
