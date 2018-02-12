@@ -1,0 +1,17 @@
+ops:
+    log_level: INFO
+
+alerta:
+  amqp:
+    host: alerta.app.ipl
+    port: 5672
+    login: TOFILL
+    password: TOFILL
+  queue: report
+
+jaeger:
+  filler: filler
+
+ssh:
+  user: reportd
+  id_rsa_filepath: /home/reportd/.ssh/id_rsa
