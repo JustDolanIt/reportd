@@ -6,10 +6,10 @@ class Plugin:
         self.kwargs = kwargs
         logging.info('ExamplePlugin inited')
 
-    def process(self, alert):
+    async def process(self, body):
         logging.info('ExamplePlugin process called')
-        logging.info(alert)
+        logging.info(body)
 
         return "\n".join( (
-            alert.decode(), '---', 'processed'
+            'Body:', body.decode(), '---', 'Output:', 'processed'
         ) )

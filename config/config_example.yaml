@@ -1,6 +1,10 @@
-ops:
-    log_level: INFO
+# Operation params
+log_level: INFO
 
+jaeger:
+  filler: filler
+
+# Input
 alerta:
   amqp:
     host: alerta.app.ipl
@@ -9,9 +13,17 @@ alerta:
     password: TOFILL
   queue: report
 
-jaeger:
-  filler: filler
+db:
+ host: pg3.db.ipl
+ port: 5432
+ database: mon_celery
+ user: TOFILL
+ password: TOFILL
 
+# Output
+reports_dir: reports
+
+# Data sources
 ssh:
-  user: reportd
-  id_rsa_filepath: /home/reportd/.ssh/id_rsa
+  user: ddunaev
+  id_rsa_filepath: /home/dolan/.ssh/id_rsa

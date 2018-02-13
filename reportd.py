@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import argparse
 import asyncio
 import functools
@@ -50,12 +51,14 @@ async def callback(channel, body, envelope, properties):
     for scen_global in scenarios_todo:
         scen_results = {}
         for scen_local in scen_global['scenarios']:
-            example_scanario = scenarios[scen_local].Scenario(plugins=plugins, **(scen_global['kwargs'] or {}))
+            used_kwargs = scen_global['kwargs'] or {}
+            # Passing config as kwargs key for some plugins (Data sources)
+            used_kwargs.update({"global_config": CONFIG})
+            scen = scenarios[scen_local].Scenario(plugins=plugins, **used_kwargs)
             scen_results.update({
-                scen_local: example_scanario.process(body)
+                scen_local: await scen.process(body)
                 })
-        #TODO form report and save
-        print(scen_results)
+        # form report and save
         if not os.path.exists(CONFIG['reports_dir']):
             os.makedirs(CONFIG['reports_dir'])
         with open("{}/{}_{}_{}".format(

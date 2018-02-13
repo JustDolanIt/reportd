@@ -4,3 +4,6 @@
 *.yaml
 !config/config_example.yaml
 reports/
+lib/scenarios/test_scenario.py
+lib/plugins/test_plugin.py
+*.log

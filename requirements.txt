@@ -3,3 +3,8 @@ pyyaml
 requests
 aiopg
 psycopg2
+
+#ssh plugin
+asyncssh
+#web screenshot plugin
+selenium
