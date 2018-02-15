@@ -3,6 +3,7 @@ pyyaml
 requests
 aiopg
 psycopg2
+markdown
 
 #ssh plugin
 asyncssh

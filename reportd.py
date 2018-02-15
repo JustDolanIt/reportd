@@ -9,6 +9,7 @@ import datetime
 
 import aioamqp
 import yaml
+import markdown
 
 from lib import Reporter
 from lib.query import Query
@@ -61,14 +62,50 @@ async def callback(channel, body, envelope, properties):
         # form report and save
         if not os.path.exists(CONFIG['reports_dir']):
             os.makedirs(CONFIG['reports_dir'])
-        with open("{}/{}_{}_{}".format(
+        with open("{}/{}_{}_{}.html".format(
                 CONFIG['reports_dir'],
                 scen_global['name_prefix'],
                 body_dict['id'],
                 datetime.datetime.now().isoformat()
         ), 'w') as out_f:
-            for k, v in scen_results.items():
-                out_f.write("Result for {}:\n\n{}\n--------\n".format(k, v))
+            md = markdown.Markdown(extensions=[
+                'markdown.extensions.toc',
+                'markdown.extensions.tables',
+                'markdown.extensions.sane_lists',
+                'markdown.extensions.smarty'
+            ])
+            scen_results_md = ["""
+# {}
+
+{}
+
+            """.format(k, v) for k, v in  scen_results.items()]
+            html = md.convert('\n'.join(['[TOC]', '\n'] + scen_results_md ))
+            pre_html = """
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style>
+table {
+  border-collapse: collapse; border: 1px solid black;
+}
+td,th {
+  border-collapse: collapse; border: 1px solid black; padding: 0.5em;
+}
+</style>
+</head>
+"""
+            html = """
+<body>
+{}
+</body>
+</html>
+            """.format(
+                html
+                    )
+            out_f.write(pre_html+html)
+
+        logging.info("Processing finished")
 
     await channel.basic_client_ack(
             delivery_tag=envelope.delivery_tag,

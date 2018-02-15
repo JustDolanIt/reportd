@@ -1,4 +1,5 @@
 import logging
+import json
 
 
 class Plugin:
@@ -8,8 +9,15 @@ class Plugin:
 
     async def process(self, body):
         logging.info('ExamplePlugin process called')
-        logging.info(body)
 
-        return "\n".join( (
-            'Body:', body.decode(), '---', 'Output:', 'processed'
-        ) )
+        logging.debug('Processing finished')
+
+        return {
+                "head": "### Message body",
+                "body": "<pre>\n{}\n</pre>".format(json.dumps(
+                        json.loads(body.decode()),
+                        indent=2,
+                        sort_keys=True
+                        )
+                    )
+                }

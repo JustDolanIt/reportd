@@ -1,5 +1,6 @@
-import aiopg, logging
+import logging
 
+import aiopg
 from psycopg2.extras import DictCursor
 
 

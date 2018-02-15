@@ -17,13 +17,14 @@ class Plugin:
     """
     async def process(self, body):
         logging.info('SSH plugin process called')
+        username=body.get(
+            'user',
+            self.kwargs['global_config']['ssh']['user'] )
         try:
             async with asyncssh.connect(
                     body['host'],
                     known_hosts=None,
-                    username=body.get(
-                        'user',
-                        self.kwargs['global_config']['ssh']['user'] )
+                    username=username
                     ) as conn:
                 res = await conn.run(
                         body['commands'],
@@ -34,6 +35,9 @@ class Plugin:
             logging.error(e)
             result = 'Execution error'
 
-        return "\n".join( (
-            'Commands:', body['commands'], '---', 'Output:', result
-        ) )
+        logging.debug('Processing finished')
+
+        return {
+                "head": '### <code>{}@{} $ {}</code>'.format(username, body['host'], body['commands']),
+                "body": '<pre>\n{}\n</pre>'.format(result)
+                }

@@ -9,9 +9,18 @@ class Scenario:
 
     async def process(self, alert):
         logging.info('ExampleScenario process called')
-        plugin_results = []
 
         ex_plug = self.plugins['example_plugin'].Plugin(**self.kwargs)
-        plugin_results.append(await ex_plug.process(alert))
+        ex_result.append(await ex_plug.process(alert))
+        ex_result_formatted = """
+{}
 
-        return "\n!!!!!!!!\n".join(plugin_results)
+{}
+        """.format(ex_result['head'], ex_result['body'])
+
+        return """
+## Alert data
+
+{}""".format(
+            ex_result_formatted
+            )

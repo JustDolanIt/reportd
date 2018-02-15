@@ -54,6 +54,9 @@ class Plugin:
         # .close() with headless leaves geckodriver
         driver.quit()
 
-        return "\n".join( (
-            'Link:', body['page'] , '---', 'Screenshot in base64:', screen
-        ) )
+        logging.debug('Processing finished')
+
+        return {
+                "head": '### {} <a href="{}">clickable</a>'.format(body['page'], body['page']),
+                "body": '<img src="data:image/png;base64, {}" alt="Screenshot" />'.format(screen)
+                }
