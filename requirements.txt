@@ -9,3 +9,5 @@ markdown
 asyncssh
 #web screenshot plugin
 selenium
+#http plugin
+aiohttp

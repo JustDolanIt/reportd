@@ -72,7 +72,8 @@ async def callback(channel, body, envelope, properties):
                 'markdown.extensions.toc',
                 'markdown.extensions.tables',
                 'markdown.extensions.sane_lists',
-                'markdown.extensions.smarty'
+                'markdown.extensions.smarty',
+                'markdown.extensions.extra'
             ])
             scen_results_md = ["""
 # {}
@@ -82,6 +83,7 @@ async def callback(channel, body, envelope, properties):
             """.format(k, v) for k, v in  scen_results.items()]
             html = md.convert('\n'.join(['[TOC]', '\n'] + scen_results_md ))
             pre_html = """
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />

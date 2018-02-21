@@ -5,10 +5,10 @@ import json
 class Plugin:
     def __init__(self, *args, **kwargs):
         self.kwargs = kwargs
-        logging.info('ExamplePlugin inited')
+        logging.info('Example plugin inited')
 
     async def process(self, body):
-        logging.info('ExamplePlugin process called')
+        logging.info('Example plugin process called')
 
         logging.debug('Processing finished')
 
