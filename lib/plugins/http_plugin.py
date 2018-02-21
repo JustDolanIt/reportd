@@ -25,7 +25,7 @@ class Plugin:
 
         async with aiohttp.ClientSession(
                 connector=aiohttp.TCPConnector(
-                    verify_ssl=body.get('ssl_verify', None)
+                    verify_ssl=body.get('ssl_verify', True)
                     )
                 ) as session:
             methods_map = {
