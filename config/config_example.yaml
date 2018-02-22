@@ -27,3 +27,7 @@ reports_dir: reports
 ssh:
   user: ddunaev
   id_rsa_filepath: /home/dolan/.ssh/id_rsa
+
+grafana:
+  user: Bearer
+  apikey: TOFILL

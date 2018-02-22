@@ -10,6 +10,13 @@ class Scenario:
     """
     Example kwargs:
     {
+      "k8s": [
+        {
+          "deployment": "abonent",
+          "namespace": "api",
+          "context": "prod"
+        }
+      ],
       "grafana": [
         {
           "url": "https://grafana.app.ipl/render/d-solo/000000038/bc?refresh=1m&panelId=20&orgId=1&width=1000&height=500&tz=UTC%2B03%3A00",
@@ -123,6 +130,17 @@ class Scenario:
 
         """.format(s['head'], s['body']) for s in grafana])
 
+        k8s = []
+        k8s_plug = self.plugins['k8s_plugin'].Plugin(**self.kwargs)
+        for k8s_data in self.kwargs['k8s']:
+            k8s.append(await k8s_plug.process(k8s_data))
+        k8s_formatted = "\n".join(["""
+{}
+
+{}
+
+        """.format(s['head'], s['body']) for s in k8s])
+
         return """
 ## Alert data
 
@@ -157,11 +175,18 @@ class Scenario:
 ## Grafana
 
 {}
+
+---
+
+## K8s
+
+{}
         """.format(
             ex_result_formatted,
             ssh_requests_formatted,
             screenshots_formatted,
             pg_formatted,
             http_formatted,
-            grafana_formatted
+            grafana_formatted,
+            k8s_formatted
             )

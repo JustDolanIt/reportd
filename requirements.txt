@@ -11,3 +11,5 @@ asyncssh
 selenium
 #http plugin
 aiohttp
+#k8s plugin
+kubernetes
