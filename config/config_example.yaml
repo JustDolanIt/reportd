@@ -31,3 +31,12 @@ ssh:
 grafana:
   user: Bearer
   apikey: TOFILL
+
+k8s:
+  config_file: /home/dolan/.kube/config
+
+kibana:
+  url_base: https://kibana.app.ipl
+  wait: 20
+  width: 1920
+  height: 1920

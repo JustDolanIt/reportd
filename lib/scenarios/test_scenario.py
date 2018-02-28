@@ -141,6 +141,17 @@ class Scenario:
 
         """.format(s['head'], s['body']) for s in k8s])
 
+        kibana_screens = []
+        kibana_plug = self.plugins['kibana_plugin'].Plugin(**self.kwargs)
+        for kibana_data in self.kwargs['kibana']:
+            kibana_screens.append(await kibana_plug.process(kibana_data))
+        kibana_screens_formatted = "\n".join(["""
+{}
+
+{}
+
+        """.format(s['head'], s['body']) for s in kibana_screens])
+
         return """
 ## Alert data
 
@@ -181,6 +192,12 @@ class Scenario:
 ## K8s
 
 {}
+
+---
+
+## Kibana
+
+{}
         """.format(
             ex_result_formatted,
             ssh_requests_formatted,
@@ -188,5 +205,6 @@ class Scenario:
             pg_formatted,
             http_formatted,
             grafana_formatted,
-            k8s_formatted
+            k8s_formatted,
+            kibana_screens_formatted
             )
