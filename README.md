@@ -13,3 +13,5 @@ apt install firefox xvfb
 Xvfb :10 -ac &
 DISPLAY=:10 firefox
 ```
+
+Also for selenium geckodriver must be used - https://askubuntu.com/questions/870530/how-to-install-geckodriver-in-ubuntu

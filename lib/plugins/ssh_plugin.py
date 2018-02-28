@@ -24,7 +24,8 @@ class Plugin:
             async with asyncssh.connect(
                     body['host'],
                     known_hosts=None,
-                    username=username
+                    username=username,
+                    client_keys=[self.kwargs['global_config']['ssh']['id_rsa_filepath']]
                     ) as conn:
                 res = await conn.run(
                         body['commands'],
