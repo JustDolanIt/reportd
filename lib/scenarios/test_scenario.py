@@ -10,6 +10,11 @@ class Scenario:
     """
     Example kwargs:
     {
+    "kibana": [
+        {
+          "query": "hostname: pay.inplat.ru"
+        }
+      ],
       "k8s": [
         {
           "deployment": "abonent",
