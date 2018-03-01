@@ -98,9 +98,9 @@ class Query:
             records = await cursor.fetchall()
         except Exception as e:
             logging.error(e)
-            await cursor.execute("ROLLBACK")
             records = []
         finally:
+            await cursor.execute("ROLLBACK")
             cursor.close()
 
         return [dict(r) for r in records]
