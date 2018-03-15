@@ -13,13 +13,6 @@ class Reporter():
         self.plugins = self.get_plugins()
         self.scenarios = self.get_scenarios()
 
-    async def report_alert(self, alert):
-        logging.info(alert)
-        pass
-
-    def form_report(self, report):
-        pass
-
     def get_plugins(self):
         plugins = {}
         possible_plugins = os.listdir(PluginsFolder)
